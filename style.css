@@ -7,9 +7,9 @@
 
 :root {
   /* Color tokens — surveyor's palette */
-  --ink: #16211C;          /* deep pine-ink — primary dark */
-  --ink-soft: #223129;     /* lighter ink panel */
-  --ink-line: #3A4B41;     /* hairline on dark */
+  --ink: #0B0C0A;          /* near-black — primary dark */
+  --ink-soft: #1A1C18;     /* lighter ink panel */
+  --ink-line: #333530;     /* hairline on dark */
   --paper: #F1EDE2;        /* field-book paper */
   --paper-dim: #E7E0CF;    /* paper shade */
   --paper-line: rgba(22, 33, 28, 0.14);
@@ -250,33 +250,40 @@ textarea:focus-visible {
 }
 .btn-outline-dark:hover { border-color: var(--teal); color: var(--teal); }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero (full-bleed photo) ---------- */
 .hero {
   position: relative;
-  background: var(--ink);
   color: var(--text-on-ink);
   overflow: hidden;
-  padding: 96px 0 88px;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
 }
 
-.hero-contours {
+.hero::before {
+  content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.55;
-  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6,7,5,0.25) 0%, rgba(6,7,5,0.35) 35%, rgba(6,7,5,0.88) 92%),
+    linear-gradient(90deg, rgba(6,7,5,0.55) 0%, rgba(6,7,5,0.05) 55%);
 }
 
 .hero-inner {
   position: relative;
   z-index: 2;
   max-width: 760px;
+  padding: 80px 0 64px;
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(38px, 5.6vw, 60px);
   font-weight: 600;
-  line-height: 1.04;
+  line-height: 1.06;
   margin: 18px 0 20px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.35);
 }
 
 .hero .lede {
@@ -292,31 +299,63 @@ textarea:focus-visible {
   flex-wrap: wrap;
 }
 
-.coord-strip {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-on-ink-muted);
-  margin-top: 46px;
+/* Glass stat cards over photo */
+.stat-strip {
   display: flex;
-  gap: 28px;
+  gap: 14px;
   flex-wrap: wrap;
-  border-top: 1px solid var(--ink-line);
-  padding-top: 18px;
+  margin-top: 44px;
 }
-.coord-strip span b { color: var(--brass-bright); font-weight: 500; }
+.stat-glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 6px;
+  padding: 16px 22px;
+  min-width: 130px;
+}
+.stat-glass .stat-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--brass-bright);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-glass .stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+}
 
-/* ---------- Page header (interior pages) ---------- */
+/* ---------- Page header (interior pages, photo) ---------- */
 .page-header {
-  background: var(--ink);
   color: var(--text-on-ink);
-  padding: 62px 0 52px;
+  padding: 128px 0 64px;
   position: relative;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
 }
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,7,5,0.35) 0%, rgba(6,7,5,0.45) 30%, rgba(6,7,5,0.9) 100%);
+}
+.page-header .wrap { position: relative; z-index: 2; }
 .page-header h1 {
   font-size: clamp(32px, 4.5vw, 46px);
   font-weight: 600;
   margin: 16px 0 12px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.35);
 }
 .page-header .lede {
   color: var(--text-on-ink-muted);
@@ -653,3 +692,12 @@ section { padding: 88px 0; }
   color: var(--rust);
   font-style: italic;
 }
+
+/* ---------- Photo hero backgrounds ---------- */
+/* Swap these URLs for your own photography whenever you have it —
+   just replace the url('...') below with a path to your image. */
+.bg-home     { background-image: url('https://images.unsplash.com/photo-1635274580091-5ffc2b712d80?auto=format&fit=crop&w=2000&q=80'); }
+.bg-surveying{ background-image: url('https://images.unsplash.com/photo-1521994984983-3b3b4e59676a?auto=format&fit=crop&w=2000&q=80'); }
+.bg-gis      { background-image: url('https://images.unsplash.com/photo-1749039415784-875764ba6523?auto=format&fit=crop&w=2000&q=80'); }
+.bg-about    { background-image: url('https://images.unsplash.com/photo-1635274580091-5ffc2b712d80?auto=format&fit=crop&w=2000&q=80'); }
+.bg-contact  { background-image: url('https://images.unsplash.com/photo-1521994984983-3b3b4e59676a?auto=format&fit=crop&w=2000&q=80'); }
